@@ -25,7 +25,13 @@ public class SpringBootRetryDbApplication implements CommandLineRunner {
         for (int i = 0; i < 10; i++) {
             String first_name = String.format("Josh%05d", i);
             String last_name = String.format("hogehoge%05d", i);
+            log.info("Insert record. i = [" + i + "], first_name = [" + first_name + "], last_name = [" + last_name + "]");
             jdbcTemplate.update("INSERT INTO customers(first_name, last_name) VALUES (?, ?)", first_name, last_name);
+            try {
+                Thread.sleep(1_000);
+            } catch (InterruptedException e) {
+                log.info("Thread.sleep occurs InterruptedException. i = [" + i + "]");
+            }
         }
         log.info("Querying for customer records where first_name = 'Josh%': ");
         jdbcTemplate.query("SELECT id, first_name, last_name FROM customers WHERE first_name LIKE ?",
