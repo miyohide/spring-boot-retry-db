@@ -22,7 +22,7 @@ public class SpringBootRetryDbApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("Start command line app...");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1_000; i++) {
             String first_name = String.format("Josh%05d", i);
             String last_name = String.format("hogehoge%05d", i);
             log.info("Insert record. i = [" + i + "], first_name = [" + first_name + "], last_name = [" + last_name + "]");
