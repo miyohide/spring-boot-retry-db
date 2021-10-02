@@ -28,9 +28,9 @@ public class SpringBootRetryDbApplication implements CommandLineRunner {
             jdbcTemplate.update("INSERT INTO customers(first_name, last_name) VALUES (?, ?)", first_name, last_name);
         }
         log.info("Querying for customer records where first_name = 'Josh%': ");
-        jdbcTemplate.query("SELECT id, first_name, last_name FROM customers WHERE first_name LIKE ?", new Object[] { "Josh%" },
-                (rs, rowNum) -> new Customer(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name")))
-                .forEach(customer -> log.info(customer.toString()));
+        jdbcTemplate.query("SELECT id, first_name, last_name FROM customers WHERE first_name LIKE ?",
+                (rs, rowNum) -> new Customer(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name")), new Object[] { "Josh%" })
+                        .forEach(customer -> log.info(customer.toString()));
         log.info("End command line app");
     }
 }
