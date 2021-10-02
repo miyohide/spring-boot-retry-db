@@ -26,14 +26,13 @@ public class SpringBootRetryDbApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Start command line app...");
-        List<Object[]> splitUpNames =
-                Arrays.asList("John Woo", "jeff Dean", "Josh Bloch", "Josh Long").stream()
-                                .map(name -> name.split(" "))
-                                        .collect(Collectors.toList());
-        jdbcTemplate.batchUpdate("INSERT INTO customers(first_name, last_name) VALUES (?, ?)", splitUpNames);
-
-        log.info("Querying for customer records where first_name = 'Josh': ");
-        jdbcTemplate.query("SELECT id, first_name, last_name FROM customers WHERE first_name = ?", new Object[] { "Josh" },
+        for (int i = 0; i < 10; i++) {
+            String first_name = String.format("Josh%05d", i);
+            String last_name = String.format("hogehoge%05d", i);
+            jdbcTemplate.update("INSERT INTO customers(first_name, last_name) VALUES (?, ?)", first_name, last_name);
+        }
+        log.info("Querying for customer records where first_name = 'Josh%': ");
+        jdbcTemplate.query("SELECT id, first_name, last_name FROM customers WHERE first_name LIKE ?", new Object[] { "Josh%" },
                 (rs, rowNum) -> new Customer(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name")))
                 .forEach(customer -> log.info(customer.toString()));
         log.info("End command line app");
