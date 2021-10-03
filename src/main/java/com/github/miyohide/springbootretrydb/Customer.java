@@ -1,13 +1,17 @@
 package com.github.miyohide.springbootretrydb;
 
+import java.time.OffsetDateTime;
+
 public class Customer {
     private long id;
     private String firstName, lastName;
+    private OffsetDateTime created_at;
 
-    public Customer(long id, String firstName, String lastName) {
+    public Customer(long id, String firstName, String lastName, OffsetDateTime created_at) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.created_at = created_at;
     }
 
     @Override
@@ -16,6 +20,7 @@ public class Customer {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", created_at=" + created_at +
                 '}';
     }
 
