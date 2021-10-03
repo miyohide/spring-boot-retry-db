@@ -7,9 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.retry.annotation.EnableRetry;
 
 import java.time.OffsetDateTime;
 
+@EnableRetry
 @SpringBootApplication
 public class SpringBootRetryDbApplication implements CommandLineRunner {
     private static final Logger log =
@@ -24,7 +26,7 @@ public class SpringBootRetryDbApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("Start command line app...");
-        for (int i = 0; i < 1_000; i++) {
+        for (int i = 0; i < 10; i++) {
             String first_name = String.format("Josh%05d", i);
             String last_name = String.format("hogehoge%05d", i);
             log.info("Insert record. i = [" + i + "], first_name = [" + first_name + "], last_name = [" + last_name + "]");
