@@ -1,11 +1,17 @@
+variable "app_rg_location" {}
+variable "app_rg_name" {}
+variable "app_acr_name" {}
+variable "app_pg_server_name" {}
+variable "app_pg_db_name" {}
+
 provider "azurerm" {
   features {}
 }
 
 # resource groupの作成
 resource "azurerm_resource_group" "rg" {
-  location = "japaneast"
-  name     = "rg-db-retry001"
+  location = var.app_rg_location
+  name     = var.app_rg_name
 }
 
 # RDBMSのユーザ名とパスワードの参照のために既存のKeyVaultを参照
@@ -27,7 +33,7 @@ data "azurerm_key_vault_secret" "db-password" {
 # Azure Container Registryの作成
 resource "azurerm_container_registry" "acr" {
   location            = azurerm_resource_group.rg.location
-  name                = "acrdbretry001"
+  name                = var.app_acr_name
   resource_group_name = azurerm_resource_group.rg.name
   sku = "Basic"
   admin_enabled = true
@@ -36,7 +42,7 @@ resource "azurerm_container_registry" "acr" {
 # PostgreSQLの作成
 resource "azurerm_postgresql_server" "pg" {
   location            = azurerm_resource_group.rg.location
-  name                = "pgdbretry001"
+  name                = var.app_pg_server_name
   resource_group_name = azurerm_resource_group.rg.name
   sku_name            = "B_Gen5_1"
   version             = "11"
@@ -54,7 +60,7 @@ resource "azurerm_postgresql_server" "pg" {
 resource "azurerm_postgresql_database" "pg-db" {
   charset             = "utf8"
   collation           = "Japanese_Japan.932"
-  name                = "app_db_production"
+  name                = var.app_pg_db_name
   resource_group_name = azurerm_resource_group.rg.name
   server_name         = azurerm_postgresql_server.pg.name
 }
