@@ -64,3 +64,13 @@ resource "azurerm_postgresql_database" "pg-db" {
   resource_group_name = azurerm_resource_group.rg.name
   server_name         = azurerm_postgresql_server.pg.name
 }
+
+# PostgreSQLのルール作成
+resource "azurerm_postgresql_firewall_rule" "pg-fw" {
+  name                = "allow_access_to_Azure_service"
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name         = azurerm_postgresql_server.pg.name
+  # Azure serviceからアクセスを許可するにはstart/endともに0.0.0.0を指定
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
