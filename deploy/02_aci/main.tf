@@ -45,7 +45,7 @@ resource "azurerm_container_group" "aci" {
 
   container {
     cpu                          = 0.5
-    image                        = "${data.azurerm_container_registry.acr.login_server}/batch_processing:latest"
+    image                        = "${data.azurerm_container_registry.acr.login_server}/retry_db:latest"
     memory                       = 1.5
     name                         = "miyohidebatchapp"
     # ポートの設定は必須っぽいので、適当なものを設定
