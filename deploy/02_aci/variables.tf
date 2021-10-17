@@ -8,27 +8,12 @@ variable "kv_name" {
   description = "KeyVaultの名前"
 }
 
-variable "rg_name" {
-  type = string
-  description = "Azure Container Registryがあるリソースグループの名前"
-  default = "rg-db-retry001"
-}
-
-variable "aci_name" {
-  type = string
-  description = "Azure Container Instanceの名前"
-  default = "acimiyohideretrydb001"
-}
-
-variable "acr_name" {
-  type = string
-  description = "Azure Container Registryの名前"
-  default = "acrdbretry001"
-}
-
-locals {
-  postgresql = {
-    name   = "pgdbretry001"
-    dbname = "app_db_production"
-  }
-}
+variable "app_resource_group_name" {}
+variable "app_resource_group_location" {}
+variable "db_user_key" {}
+variable "db_password_key" {}
+variable "container_registry_name" {}
+variable "postgresql_server_name" {}
+variable "postgresql_db_name" {}
+variable "container_instance_name" {}
+variable "log_analytics_workspace_name" {}
