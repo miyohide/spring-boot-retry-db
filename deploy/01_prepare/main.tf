@@ -3,6 +3,7 @@ variable "app_rg_name" {}
 variable "app_acr_name" {}
 variable "app_pg_server_name" {}
 variable "app_pg_db_name" {}
+variable "log_analytics_workspace_name" {}
 
 provider "azurerm" {
   features {}
@@ -73,4 +74,11 @@ resource "azurerm_postgresql_firewall_rule" "pg-fw" {
   # Azure serviceからアクセスを許可するにはstart/endともに0.0.0.0を指定
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
+}
+
+# Log Analytics Workspace
+resource "azurerm_log_analytics_workspace" "log" {
+  location            = azurerm_resource_group.rg.location
+  name                = var.log_analytics_workspace_name
+  resource_group_name = azurerm_resource_group.rg.name
 }
