@@ -43,7 +43,7 @@ public class SpringBootRetryDbApplication implements CommandLineRunner {
             }
         }
         log.info("Querying for customer records where first_name = 'Josh%': ");
-        jdbcTemplate.query("SELECT id, first_name, last_name, created_at FROM customers WHERE first_name LIKE ?",
+        jdbcTemplate.query("SELECT id, first_name, last_name, created_at FROM customers WHERE first_name LIKE ? ORDER BY id",
                 (rs, rowNum) -> new Customer(
                         rs.getLong("id"),
                         rs.getString("first_name"),
