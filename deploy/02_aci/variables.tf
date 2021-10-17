@@ -8,12 +8,10 @@ variable "kv_name" {
   description = "KeyVaultの名前"
 }
 
-variable "app_resource_group_name" {}
-variable "app_resource_group_location" {}
-variable "db_user_key" {}
-variable "db_password_key" {}
-variable "container_registry_name" {}
-variable "postgresql_server_name" {}
-variable "postgresql_db_name" {}
+variable "app_rg_name" {}
+variable "app_rg_location" {}
+variable "app_acr_name" {}
+variable "app_pg_server_name" {}
+variable "app_pg_db_name" {}
 variable "container_instance_name" {}
 variable "log_analytics_workspace_name" {}

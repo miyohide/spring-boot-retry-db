@@ -3,8 +3,8 @@ provider "azurerm" {
 }
 
 data "azurerm_container_registry" "acr" {
-  name                = var.container_registry_name
-  resource_group_name = var.app_resource_group_name
+  name                = var.app_acr_name
+  resource_group_name = var.app_rg_name
 }
 
 # RDBMSのユーザ名とパスワードの参照のために既存のKeyVaultを参照
@@ -15,24 +15,24 @@ data "azurerm_key_vault" "kv" {
 
 data "azurerm_key_vault_secret" "db-user" {
   key_vault_id = data.azurerm_key_vault.kv.id
-  name         = var.db_user_key
+  name         = "app-db-user"
 }
 
 data "azurerm_key_vault_secret" "db-password" {
   key_vault_id = data.azurerm_key_vault.kv.id
-  name         = var.db_password_key
+  name         = "app-db-password"
 }
 
 data "azurerm_log_analytics_workspace" "log" {
   name                = var.log_analytics_workspace_name
-  resource_group_name = var.app_resource_group_name
+  resource_group_name = var.app_rg_name
 }
 
 resource "azurerm_container_group" "aci" {
-  location            = var.app_resource_group_location
+  location            = var.app_rg_location
   name                = var.container_instance_name
   os_type             = "linux"
-  resource_group_name = var.app_resource_group_name
+  resource_group_name = var.app_rg_name
   # IPアドレスの設定はPublicかPrivateかのいずれかであるため、とりあえず仮のものを設定
   ip_address_type = "Public"
   restart_policy = "Never"
@@ -55,8 +55,8 @@ resource "azurerm_container_group" "aci" {
     }
     secure_environment_variables = {
       "SPRING_PROFILES_ACTIVE"    = "prod",
-      "MYAPP_DATASOURCE_URL"      = "jdbc:postgresql://${var.postgresql_server_name}.postgres.database.azure.com:5432/${var.postgresql_db_name}"
-      "MYAPP_DATASOURCE_USERNAME" = "${data.azurerm_key_vault_secret.db-user.value}@${var.postgresql_server_name}",
+      "MYAPP_DATASOURCE_URL"      = "jdbc:postgresql://${var.app_pg_server_name}.postgres.database.azure.com:5432/${var.app_pg_db_name}"
+      "MYAPP_DATASOURCE_USERNAME" = "${data.azurerm_key_vault_secret.db-user.value}@${var.app_pg_server_name}",
       "MYAPP_DATASOURCE_PASSWORD" = data.azurerm_key_vault_secret.db-password.value
       "APP_RECORDS_NUM"           = 30
     }
