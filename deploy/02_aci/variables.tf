@@ -1,10 +1,10 @@
 variable "kv_rg" {
-  type = string
+  type        = string
   description = "KeyVaultのリソースグループ"
 }
 
 variable "kv_name" {
-  type = string
+  type        = string
   description = "KeyVaultの名前"
 }
 

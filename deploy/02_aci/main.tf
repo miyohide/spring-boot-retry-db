@@ -35,7 +35,7 @@ resource "azurerm_container_group" "aci" {
   resource_group_name = var.app_rg_name
   # IPアドレスの設定はPublicかPrivateかのいずれかであるため、とりあえず仮のものを設定
   ip_address_type = "Public"
-  restart_policy = "Never"
+  restart_policy  = "Never"
 
   image_registry_credential {
     password = data.azurerm_container_registry.acr.admin_password
@@ -44,10 +44,10 @@ resource "azurerm_container_group" "aci" {
   }
 
   container {
-    cpu                          = 0.5
-    image                        = "${data.azurerm_container_registry.acr.login_server}/retry_db:latest"
-    memory                       = 1.5
-    name                         = "miyohidebatchapp"
+    cpu    = 0.5
+    image  = "${data.azurerm_container_registry.acr.login_server}/retry_db:latest"
+    memory = 1.5
+    name   = "miyohidebatchapp"
     # ポートの設定は必須っぽいので、適当なものを設定
     ports {
       port     = 443
@@ -65,7 +65,7 @@ resource "azurerm_container_group" "aci" {
   # Log Analytics Workspaceの設定
   diagnostics {
     log_analytics {
-      workspace_id = data.azurerm_log_analytics_workspace.log.workspace_id
+      workspace_id  = data.azurerm_log_analytics_workspace.log.workspace_id
       workspace_key = data.azurerm_log_analytics_workspace.log.primary_shared_key
     }
   }
