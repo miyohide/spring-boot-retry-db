@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 public class MyService {
     private static final Logger log =
             LoggerFactory.getLogger(MyService.class);
-    @Value("${app.records.num:10}")
+    @Value("${app.records.num:100}")
     private int RECORDS_NUM;
 
     @Autowired
