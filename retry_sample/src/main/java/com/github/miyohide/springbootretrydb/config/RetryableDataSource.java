@@ -22,9 +22,9 @@ public class RetryableDataSource extends AbstractDataSource {
 
     // AzureのRDBMSの再接続は5秒以上の間隔を空けて、最大60秒待つ必要がある。
     // see. https://docs.microsoft.com/ja-jp/azure/azure-sql/database/troubleshoot-common-connectivity-issues
-    // このことから、10秒から20秒の間で最大10回リトライする
+    // このことから、5秒から10秒の間で最大12回リトライする
     @Override
-    @Retryable(maxAttempts = 10, backoff = @Backoff(delay = 10_000, maxDelay = 20_000))
+    @Retryable(maxAttempts = 12, backoff = @Backoff(delay = 5_000, maxDelay = 10_000))
     public Connection getConnection() throws SQLException {
         log.info("getting connection ...");
         return dataSource.getConnection();
@@ -32,9 +32,9 @@ public class RetryableDataSource extends AbstractDataSource {
 
     // AzureのRDBMSの再接続は5秒以上の間隔を空けて、最大60秒待つ必要がある。
     // see. https://docs.microsoft.com/ja-jp/azure/azure-sql/database/troubleshoot-common-connectivity-issues
-    // このことから、10秒から20秒の間で最大10回リトライする
+    // このことから、5秒から10秒の間で最大12回リトライする
     @Override
-    @Retryable(maxAttempts = 10, backoff = @Backoff(delay = 10_000, maxDelay = 20_000))
+    @Retryable(maxAttempts = 12, backoff = @Backoff(delay = 5_000, maxDelay = 10_000))
     public Connection getConnection(String username, String password) throws SQLException {
         log.info("getting connection by username and password...");
         return dataSource.getConnection(username, password);
