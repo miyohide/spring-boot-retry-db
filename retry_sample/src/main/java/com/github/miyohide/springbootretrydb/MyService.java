@@ -28,9 +28,6 @@ public class MyService {
             String last_name = String.format("hogehoge%05d", i);
             log.info("Insert record. i = [" + i + "], first_name = [" + first_name + "], last_name = [" + last_name + "]");
             jdbcTemplate.update("INSERT INTO customers(first_name, last_name) VALUES (?, ?)", first_name, last_name);
-            if (i == 5) {
-                throw new RuntimeException();
-            }
             try {
                 Thread.sleep(1_000);
             } catch (InterruptedException e) {
