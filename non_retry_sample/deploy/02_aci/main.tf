@@ -58,7 +58,7 @@ resource "azurerm_container_group" "aci" {
       "MYAPP_DATASOURCE_URL"      = "jdbc:postgresql://${var.app_pg_server_name}.postgres.database.azure.com:5432/${var.app_pg_db_name}"
       "MYAPP_DATASOURCE_USERNAME" = "${data.azurerm_key_vault_secret.db-user.value}@${var.app_pg_server_name}",
       "MYAPP_DATASOURCE_PASSWORD" = data.azurerm_key_vault_secret.db-password.value
-      "APP_RECORDS_NUM"           = 30
+      "APP_RECORDS_NUM"           = 150
     }
   }
 
