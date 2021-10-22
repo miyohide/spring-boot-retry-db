@@ -20,7 +20,7 @@ public class MyService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @Transactional
+//    @Transactional
     public void insert() {
         log.info("Start insert method...");
         for (int i = 0; i < RECORDS_NUM; i++) {
