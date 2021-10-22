@@ -14,6 +14,6 @@ PostgreSQLの接続先情報を環境変数で設定します。
 
 # 挙動
 
-デフォルトでは`customers`テーブルに10件データをinsertしたのち、`customers`テーブルに対してselect文を発行した結果を画面表示します。
+デフォルトでは`customers`テーブルに100件データをinsertしたのち、`customers`テーブルに対してselect文を発行した結果を画面表示します。
 
 insertするデータの件数は環境変数`APP_RECORDS_NUM`で変えることができます。
