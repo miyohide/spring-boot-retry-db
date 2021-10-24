@@ -10,7 +10,6 @@ variable "kv_name" {
 
 variable "app_rg_location" {}
 variable "app_rg_name" {}
-variable "app_acr_name" {}
 variable "app_pg_server_name" {}
 variable "app_pg_db_name" {}
 variable "log_analytics_workspace_name" {}
