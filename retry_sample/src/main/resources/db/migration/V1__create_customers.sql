@@ -1,6 +1,0 @@
-CREATE TABLE customers(
-    id BIGSERIAL PRIMARY KEY,
-    first_name VARCHAR(255),
-    last_name  VARCHAR(255),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
