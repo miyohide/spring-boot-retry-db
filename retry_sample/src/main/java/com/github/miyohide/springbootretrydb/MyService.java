@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,8 @@ public class MyService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-//    @Transactional
+    @Retryable(maxAttempts = 12, backoff = @Backoff(delay = 5_000, maxDelay = 10_000))
+    @Transactional
     public void insert() {
         log.info("Start insert method...");
         for (int i = 0; i < RECORDS_NUM; i++) {
