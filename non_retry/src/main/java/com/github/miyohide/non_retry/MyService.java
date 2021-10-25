@@ -1,4 +1,4 @@
-package com.github.miyohide.springbootretrydb;
+package com.github.miyohide.non_retry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

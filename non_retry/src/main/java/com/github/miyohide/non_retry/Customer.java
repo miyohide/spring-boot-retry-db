@@ -1,4 +1,4 @@
-package com.github.miyohide.springbootretrydb;
+package com.github.miyohide.non_retry;
 
 import java.time.OffsetDateTime;
 
