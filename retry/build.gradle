@@ -25,3 +25,12 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jib {
+    to {
+        image = "miyohide/retry_db"
+    }
+    container {
+        creationTime = "USE_CURRENT_TIMESTAMP"
+    }
+}
